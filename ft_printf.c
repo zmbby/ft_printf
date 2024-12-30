@@ -1,14 +1,32 @@
 #include "ft_printf.h"
 
-void    write_hexa_add(void *ptr, int **count)
+void    ft_print_hex_V2(unsigned int a, int **count)
 {
-    uintptr_t hexa_int;
+   char	*base_hex;
 
-    hexa_int = (uintptr_t)ptr;
-    write (1, "0x", 2);
-    while ()
+	base_hex = "0123456789abcdef";
+	if (a >= 16)
+	{
+		ft_print_hex_V2(a / 16, count);
+        a = a % 16;
+	}
+    (**count)++;
+    ft_putchar(base_hex[a]);
 }
 
+void    ft_print_hex_V3(unsigned int a, int **count)
+{
+   char	*base_hex;
+
+	base_hex = "0123456789ABCDEF";
+	if (a >= 16)
+	{
+		ft_print_hex_V3(a / 16, count);
+        a = a % 16;
+	}
+    (**count)++;
+    ft_putchar(base_hex[a]);
+}
 
 void    write_format(const char *format, va_list arg, int *count)
 {
@@ -30,6 +48,10 @@ void    write_format(const char *format, va_list arg, int *count)
         write_int(va_arg(arg, int), &count);
     else if (*format == 'p')
         write_hexa_add(va_arg(arg, void *), &count);
+    else if (*format == 'x')
+        ft_print_hex_V2(va_arg(arg, unsigned int), &count);
+    else if (*format == 'X')
+        ft_print_hex_V3(va_arg(arg, unsigned int), &count);
 }
 
 
@@ -58,14 +80,13 @@ int ft_printf(const char *format, ...)
     return (count);
 }
 
-int main()
-{
-    int a = 5;
-    int *p = &a;
-    // int count = ft_printf("%i\n", 0x2A);
-    // write(1, "\n", 1);
-    // int count2 = 
-    printf("%p\n", p);
-    // printf("\ndyali => %d\ndyalhom => %d", count, count2);
-    return 0;
-}
+// int main()
+// {
+
+//     // unsigned int p = 4294967295;
+//     int count = ft_printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+//     write(1, "\n", 1);
+//     int count2 = printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
+//     printf("\ndyali => %d\ndyalhom => %d", count, count2);
+//     return 0;
+// }
