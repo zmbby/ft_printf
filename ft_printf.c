@@ -1,61 +1,37 @@
 #include "ft_printf.h"
 
-int init_format(const char *format)
+void    write_hexa_add(void *ptr, int **count)
 {
-    if (*format == '%')
-        return (1);
-    return (0);
+    uintptr_t hexa_int;
+
+    hexa_int = (uintptr_t)ptr;
+    write (1, "0x", 2);
+    while ()
 }
 
-int write_character(char c)
-{
-    return (write(1, &c, 1));
-}
-
-void    ft_putchar(char c)
-{
-    write(1, &c, 1);
-}
-
-void write_decimale(int i, int **count)
-{
-    long nbr;
-
-    nbr = i;
-    if (nbr < 0)
-    {
-        write(1, "-", 1);
-        nbr *= -1;
-    }
-    if (nbr > 9)
-    {
-        write_decimale(nbr / 10, count);
-        nbr = nbr % 10;
-    }
-    **count += 1;
-    ft_putchar(nbr + 48);
-}
-
-void    ft_putstr(char *str, int **count)
-{
-    while()
-}
 
 void    write_format(const char *format, va_list arg, int *count)
 {
     format++;
     if (*format == 'c')
-        *count += write_character(va_arg(arg, int));
+        write_character(va_arg(arg, int), &count);
     else if (*format == 'd')
         write_decimale(va_arg(arg, int), &count);
     else if (*format == 's')
         ft_putstr(va_arg(arg, char *), &count);
+    else if (*format == 'u')
+        write_UNS_decimal(va_arg(arg, unsigned int), &count);
+    else if (*format == '%')
+        {
+            (*count)++;
+            write(1, "%", 1);
+        }
+    else if (*format == 'i')
+        write_int(va_arg(arg, int), &count);
+    else if (*format == 'p')
+        write_hexa_add(va_arg(arg, void *), &count);
 }
 
-void    ft_putchar_2(const char *format)
-{
-    write(1, &*format, 1);
-}
 
 int ft_printf(const char *format, ...)
 {
@@ -78,14 +54,18 @@ int ft_printf(const char *format, ...)
         }
         format++;
     }
+    va_end(arg);
     return (count);
 }
 
 int main()
 {
-    int count = ft_printf("%d %c", 97, 97);
-    write(1, "\n", 1);
-    int count2 = printf("%d %c", 97, 97);
-    printf("\ndyali => %d\ndyalhom => %d", count, count2);
+    int a = 5;
+    int *p = &a;
+    // int count = ft_printf("%i\n", 0x2A);
+    // write(1, "\n", 1);
+    // int count2 = 
+    printf("%p\n", p);
+    // printf("\ndyali => %d\ndyalhom => %d", count, count2);
     return 0;
 }
