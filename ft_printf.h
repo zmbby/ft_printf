@@ -1,23 +1,21 @@
 #ifndef FT_PRINTF_H
-#define FT_PRINTF_H
+# define FT_PRINTF_H
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdint.h>
+# include <stdarg.h>
+# include <stdint.h>
+# include <stdio.h>
+# include <unistd.h>
 
-
-int     init_format(const char *format);
-void    write_character(char c, int **count);
-void    write_decimale(int i, int **count);
-void    ft_putchar_2(const char *format);
-void    ft_putstr(char *str, int **count);
-void    ft_putchar(char c);
-void    write_UNS_decimal(unsigned int nbr, int **count);
-void    write_int(int i, int **count);
+int		init_format(const char *format);
+void	write_character(char c, int **count);
+void	write_decimale(int i, int **count);
+void	ft_putchar_2(const char *format);
+void	ft_putstr(char *str, int **count);
+void	ft_putchar(char c);
+void	write_UNS_decimal(unsigned int nbr, int **count);
+void	write_int(int i, int **count);
 void	ft_print_hex(unsigned long a, int ***count);
-void    write_hexa_add(void *ptr, int **count);
-int ft_printf(const char *format, ...);
-
+void	write_hexa_add(void *ptr, int **count);
+int		ft_printf(const char *format, ...);
 
 #endif
