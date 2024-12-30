@@ -1,33 +1,5 @@
 #include "ft_printf.h"
 
-void	ft_print_hex_V2(unsigned int a, int **count)
-{
-	char	*base_hex;
-
-	base_hex = "0123456789abcdef";
-	if (a >= 16)
-	{
-		ft_print_hex_V2(a / 16, count);
-		a = a % 16;
-	}
-	(**count)++;
-	ft_putchar(base_hex[a]);
-}
-
-void	ft_print_hex_V3(unsigned int a, int **count)
-{
-	char	*base_hex;
-
-	base_hex = "0123456789ABCDEF";
-	if (a >= 16)
-	{
-		ft_print_hex_V3(a / 16, count);
-		a = a % 16;
-	}
-	(**count)++;
-	ft_putchar(base_hex[a]);
-}
-
 void	write_format(const char *format, va_list arg, int *count)
 {
 	format++;
@@ -38,7 +10,7 @@ void	write_format(const char *format, va_list arg, int *count)
 	else if (*format == 's')
 		ft_putstr(va_arg(arg, char *), &count);
 	else if (*format == 'u')
-		write_UNS_decimal(va_arg(arg, unsigned int), &count);
+		write_uns_decimal(va_arg(arg, unsigned int), &count);
 	else if (*format == '%')
 	{
 		(*count)++;
@@ -49,9 +21,9 @@ void	write_format(const char *format, va_list arg, int *count)
 	else if (*format == 'p')
 		write_hexa_add(va_arg(arg, void *), &count);
 	else if (*format == 'x')
-		ft_print_hex_V2(va_arg(arg, unsigned int), &count);
+		ft_print_hex_v2(va_arg(arg, unsigned int), &count);
 	else if (*format == 'X')
-		ft_print_hex_V3(va_arg(arg, unsigned int), &count);
+		ft_print_hex_v3(va_arg(arg, unsigned int), &count);
 }
 
 int	ft_printf(const char *format, ...)

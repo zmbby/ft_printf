@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 CC = cc
 
-CFILES = ft_printf.c utils.c
+CFILES = ft_printf.c utils.c utils2.c utils3.c
 
 OBJM = $(CFILES:.c=.o)
 
